@@ -1,0 +1,33 @@
+@-webkit-keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-container .loading {
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border: 0.25rem solid theme("colors.primary.50");
+  border-top-color: theme("colors.primary.500");
+  -webkit-animation: spin 0.5s infinite linear;
+  animation: spin 0.5s infinite linear;
+}

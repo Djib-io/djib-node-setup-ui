@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import WalletConnect from "./pages/ConnectWallet";
+import { Routes, Route } from "react-router-dom";
+import Welcome from "./pages/Welcome";
+import StakeDjib from "./pages/StakeDjib";
+import SetUserPass from "./pages/SetUserPass";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<WalletConnect />} />
+      <Route path="welcome" element={<Welcome />} />
+      <Route path="stake-djib-token" element={<StakeDjib />} />
+      <Route path="set-username-and-password" element={<SetUserPass />} />
+      <Route path="login" element={<Login />} />
+      <Route path="home" element={<Home />} />
+    </Routes>
   );
 }
 

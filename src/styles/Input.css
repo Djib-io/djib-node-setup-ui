@@ -1,0 +1,46 @@
+.dinput {
+  position: relative;
+}
+
+.dinput-full-width {
+  width: 100%;
+}
+
+.dinput-full-width input,
+.dinput-full-width textarea {
+  width: 100%;
+}
+
+.dinput input,
+.dinput textarea {
+  width: 100%;
+  display: flex;
+  background: theme("colors.slate.100");
+  border: 2px solid theme("colors.slate.100");
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: theme("colors.slate.600");
+  transition: all 0.1s;
+}
+
+.dinput input.djibType,
+.dinput textarea.djibType {
+  padding: 0.5rem 5rem 0.5rem 1rem;
+}
+
+.dinput input:focus,
+.dinput textarea.djibType {
+  background: theme("colors.slate.50");
+  border: 2px solid theme("colors.slate.200");
+}
+
+.dinput input:disabled,
+.dinput textarea.djibType {
+  background: theme("colors.slate.100");
+  color: theme("colors.slate.300");
+}
+
+.dinput textarea {
+  min-height: 100px;
+  resize: none;
+}
