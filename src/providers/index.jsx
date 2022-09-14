@@ -1,12 +1,15 @@
 import React from "react";
-import { Wallet } from "./Wallet";
 import { BrowserRouter } from "react-router-dom";
+import { Wallet } from "./Wallet";
+
 
 function Providers({ children }) {
   return (
+    <>
     <Wallet>
-      <BrowserRouter>{children}</BrowserRouter>
+        <BrowserRouter>{children}</BrowserRouter>
     </Wallet>
+    </>
   );
 }
 

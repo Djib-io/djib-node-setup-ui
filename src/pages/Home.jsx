@@ -1,46 +1,77 @@
-import { useWallet } from "@solana/wallet-adapter-react";
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import Box from "../components/Box";
 import Container from "../components/Container";
 import Header from "../components/Header";
-import LineChart from "../components/LineChart";
+import LineCharts from "../components/LineChart";
 import Loading from "../components/Loading";
 import Value from "../components/Value";
-import useFetch from "../hooks/useFetch";
+import BUtton from "../components/Button";
+import prettydate from "pretty-date";
 import { ReactComponent as Logo } from "./../assets/icons/logo.svg";
 
-function Home() {
-  const { response, loading } = useFetch("https://geolocation-db.com/json/");
-  const { publicKey } = useWallet();
+import toast from "react-hot-toast";
 
+import SetupContext from "../stores/setup/SetupContext";
+import { setupInfo } from "../stores/setup/SetupAction";
+import axios from "axios";
+
+function Home() {
+  const { data, dispatch } = useContext(SetupContext);
+
+  const setup = async () => {
+    const setupinf = await setupInfo();
+    dispatch({ type: "SETUP_INFO", payload: setupinf });
+  };
+  useEffect(() => {
+    setup();
+  }, []);
+
+  const onClaimClick = async () => {
+    try {
+      const res = await axios.post(
+        "http://167.235.133.112:3045/api/reward/claim",
+        {
+          token: localStorage.getItem("djibtoken"),
+        }
+      );
+      toast.success("Claimed");
+    } catch (error) {
+    }
+  };
   return (
     <Container>
-      {loading && (
+      {!data && (
         <div className="flex justify-center items-center h-screen">
           <Loading />
         </div>
       )}
-      {!loading && (
+      {data && data.info && (
         <>
           <Header />
           <div className="w-full flex flex-col gap-8 pb-16">
             <div className="flex gap-8 mt-24 items-stretch">
               <div className="w-1/2">
                 <Box className={"flex flex-col gap-4 h-full"}>
-                  <Value label={"Your Balance:"} value={"4,997.53 DJIB"} />
-                  <Value label="Your IP Address:" value={response.IPv4} />
-                  <Value label="Domain:" value={"4389fhn_bdsk84f.example.io"} />
+                  <Value label={"Your Balance:"} value={"4,997.53 $DJIB"} />
+                  <Value label="Your IP Address:" value={data.ip} />
+                  <Value label="Domain:" value={data.info.dn} />
+                  <Value label="Your Wallet Address:" value={data.info.id} />
                   <Value
-                    label="Your Wallet Address:"
-                    value={
-                      "DbEzkb8UkKqueFZTZhHs5ktTqgeB7MXwo8xkQKqLkkC4" ||
-                      publicKey.toBase58()
-                    }
+                    label={"DJIB Locked:"}
+                    value={`${new Intl.NumberFormat("ja-IN").format(
+                      data.info.staking
+                    )} $DJIB`}
                   />
-                  <Value label={"DJIB Locked:"} value={"24,997.53 DJIB"} />
-                  <Value label={"Average lock duration:"} value={"38 weeks"} />
-                  <Value label={"Total Stake:"} value={"943,435,997.543 DJIB"} />
-
+                  <Value
+                    label={"Average lock duration:"}
+                    value={prettydate.format(new Date(data.info.locked_at))}
+                  />
+                  <Value
+                    label={"Total Stake:"}
+                    value={`${new Intl.NumberFormat("ja-IN").format(
+                      data.info.total_staking
+                    )} $DJIB`}
+                  />
                 </Box>
               </div>
               <div className="w-1/2">
@@ -53,7 +84,7 @@ function Home() {
                       </p>
                     </div>
                     <p className="text-3xl text-slate-600 font-medium">
-                      132.43$
+                      {`${data.info.djib_price.price} ${data.info.djib_price.symbol}`}
                     </p>
                   </div>
 
@@ -61,24 +92,27 @@ function Home() {
                     label={"Address:"}
                     value={"3Hi27r9kUtSmiPYtpRJNYCCGTGosnqC5Dhz812TrjpaY"}
                   />
-                    <Value label={"Minted Supply:"} value={"99,999,927.99"} />
-                    <Value label={"Decimals:"} value={"9"} />
-
-                  <LineChart height={200} />
+                  <Value label={"Minted Supply:"} value={"100,000,000"} />
+                  <Value label={"Decimals:"} value={"9"} />
+                  <div className="flex justify-between pt-32">
+                    <p className="text-3xl text-slate-600 font-medium">
+                      {/* {`${response.data.info.djib_price.price} ${response.data.info.djib_price.symbol}`} */}
+                      19,000 $DJIB
+                    </p>
+                    <BUtton onClick={() => onClaimClick()}>Claim</BUtton>
+                  </div>
                 </Box>
               </div>
             </div>
+            <div>
+              <p>overview</p>
+            </div>
+
             <Box className={"flex flex-col gap-4"}>
-              <p className="text-slate-600 text-2xl font-semibold">Chart 1</p>
-              <LineChart height={200} />
-            </Box>
-            <Box className={"flex flex-col gap-4"}>
-              <p className="text-slate-600 text-2xl font-semibold">Chart 2</p>
-              <LineChart height={200} />
-            </Box>
-            <Box className={"flex flex-col gap-4"}>
-              <p className="text-slate-600 text-2xl font-semibold">Chart 2</p>
-              <LineChart height={200} />
+              <p className="text-slate-600 text-2xl font-semibold">
+                Resourec Monitor
+              </p>
+              <LineCharts height={200} />
             </Box>
           </div>
         </>

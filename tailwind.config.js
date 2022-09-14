@@ -16,6 +16,7 @@ module.exports = {
         700: "#003D7A",
         800: "#001F3D",
         900: "#001429",
+        
         default: "#0074e5",
       },
       slate: {
@@ -33,6 +34,9 @@ module.exports = {
       warning: {
         100: "#FFF1E4",
         500: "#FF9F43",
+        600:"#ed8936",
+        700: "#fffaf0",
+        800: "#c25621",
       },
       success: {
         50: "#EEFCF4",

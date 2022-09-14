@@ -3,7 +3,7 @@ import WalletBox from "../components/WalletBox";
 import Header from "../components/Header";
 import Container from "../components/Container";
 
-function ConnectWallet(props) {
+function ConnectWallet() {
   return (
     <Container>
       <Header />

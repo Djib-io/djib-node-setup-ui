@@ -4,34 +4,21 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Providers from "./providers";
+import { SetupProvider } from "./stores/setup/SetupContext"
+import UserStatus from "./providers/UserStatus";
 
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Providers>
-      <App />
-    </Providers>
+    <SetupProvider>
+      <Providers>
+        <UserStatus>
+          <App />
+        </UserStatus>
+      </Providers>
+    </SetupProvider>
   </React.StrictMode>
 );
 

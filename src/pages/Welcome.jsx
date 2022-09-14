@@ -33,7 +33,8 @@ function Welcome(props) {
             <Value
               label="Your Wallet Address:"
               value={
-                "DbEzkb8UkKqueFZTZhHs5ktTqgeB7MXwo8xkQKqLkkC4" ||
+                "DbEzkb8UkKqueFZTZhHs5ktTqgeB7MXwo8xkQKqLkkC4" 
+                ||
                 publicKey.toBase58()
               }
             />

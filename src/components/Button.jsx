@@ -25,26 +25,6 @@ const Button = React.forwardRef(
   ) => {
     const [loading, setLoading] = useState(false);
 
-    const handleClick = useCallback(
-      async (e) => {
-        if (!onClick && !onClickCapture) return;
-        const fn =
-          onClick && !isDisabled
-            ? onClick(e)
-            : onClickCapture
-            ? onClickCapture(e)
-            : () => {};
-        if (typeof fn?.then === "function") {
-          setLoading(true);
-          fn.then(() => {
-            setLoading(false);
-          }).catch(() => {
-            setLoading(false);
-          });
-        }
-      },
-      [isDisabled, onClick, onClickCapture]
-    );
 
     return (
       <div
@@ -59,8 +39,9 @@ const Button = React.forwardRef(
           "dbutton-isDisabled": isDisabled,
           [className || ""]: className,
         })}
-        {...(onClick && { onClick: handleClick })}
-        {...(onClickCapture && { onClickCapture: handleClick })}
+
+        onClick={onClick}
+        // {...(onClickCapture && { onClickCapture: handleClick })}
       >
         {startIcon}
         {loading && withLoading ? (

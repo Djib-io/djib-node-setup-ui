@@ -1,7 +1,7 @@
 import React from "react";
 import "./../styles/Loading.css";
 
-function Loading({ color, borderColor, size, borderSize, ...props }) {
+function Loading({ color, borderColor, size, borderSize, label, ...props }) {
   return (
     <div className={"loading-container"} {...props}>
       <div
@@ -11,8 +11,9 @@ function Loading({ color, borderColor, size, borderSize, ...props }) {
           ...(borderColor && { borderColor: borderColor }),
           ...(color && { borderTopColor: color }),
         }}
-        className={"loading"}
+        className={"loading flex-col"}
       />
+      {label && label}
     </div>
   );
 }

@@ -10,6 +10,22 @@
 .dinput-full-width textarea {
   width: 100%;
 }
+input[type=submit] {
+  background-color: theme("colors.primary.500")!important;
+  color: #fff!important;
+  font-weight: 500!important;
+  padding: 6px 14px!important;
+  border-radius: 12px!important;
+  cursor: pointer!important;
+  transition: all 0.1s!important;
+  border: 2px solid theme("colors.primary.500")!important;
+  min-height: 40px!important;
+  display: flex!important;
+  gap: 4px!important;
+  white-space: nowrap!important;
+  align-items: center!important;
+  justify-content: center!important;
+}
 
 .dinput input,
 .dinput textarea {
