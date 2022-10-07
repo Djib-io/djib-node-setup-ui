@@ -29,7 +29,7 @@ function Home() {
   const onClaimClick = async () => {
     try {
       const res = await axios.post(
-        "http://167.235.133.112:3045/api/reward/claim",
+        "/api/reward/claim",
         {
           token: localStorage.getItem("djibtoken"),
         }
@@ -38,6 +38,7 @@ function Home() {
     } catch (error) {
     }
   };
+
   return (
     <Container>
       {!data && (
@@ -52,7 +53,7 @@ function Home() {
             <div className="flex gap-8 mt-24 items-stretch">
               <div className="w-1/2">
                 <Box className={"flex flex-col gap-4 h-full"}>
-                  <Value label={"Your Balance:"} value={"4,997.53 $DJIB"} />
+                  <Value label={"Your Balance:"} value={new Intl.NumberFormat("ja-IN").format(data.info.wallet) + ' $DJIB'} />
                   <Value label="Your IP Address:" value={data.ip} />
                   <Value label="Domain:" value={data.info.dn} />
                   <Value label="Your Wallet Address:" value={data.info.id} />
@@ -64,7 +65,7 @@ function Home() {
                   />
                   <Value
                     label={"Average lock duration:"}
-                    value={prettydate.format(new Date(data.info.locked_at))}
+                    value={prettydate.format(new Date(data.info.locked_at+'Z'))}
                   />
                   <Value
                     label={"Total Stake:"}
@@ -84,7 +85,7 @@ function Home() {
                       </p>
                     </div>
                     <p className="text-3xl text-slate-600 font-medium">
-                      {`${data.info.djib_price.price} ${data.info.djib_price.symbol}`}
+                      {`${data.info.djib_price.symbol}${data.info.djib_price.price} `}
                     </p>
                   </div>
 
@@ -94,13 +95,10 @@ function Home() {
                   />
                   <Value label={"Minted Supply:"} value={"100,000,000"} />
                   <Value label={"Decimals:"} value={"9"} />
-                  <div className="flex justify-between pt-32">
-                    <p className="text-3xl text-slate-600 font-medium">
-                      {/* {`${response.data.info.djib_price.price} ${response.data.info.djib_price.symbol}`} */}
-                      19,000 $DJIB
-                    </p>
-                    <BUtton onClick={() => onClaimClick()}>Claim</BUtton>
-                  </div>
+                  <Value label={"Reward:"} value={data.reward + " $DJIB"}/>
+                  {data.reward != 0 &&
+                  <BUtton onClick={() => onClaimClick()}>Claim</BUtton>
+                  }
                 </Box>
               </div>
             </div>

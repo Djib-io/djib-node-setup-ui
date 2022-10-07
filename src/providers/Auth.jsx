@@ -31,7 +31,7 @@ function Auth({ children }) {
 
     try {
       const res = await axios.post(
-        "http://167.235.133.112:3045/api/auth/login",
+        "/api/auth/login",
         {
           public_key: publicKey.toBase58(),
           signature: Base58.encode(signature),
@@ -50,7 +50,7 @@ function Auth({ children }) {
       setStatus("loading");
       try {
         const res = await axios.post(
-          "http://167.235.133.112:3045/api/auth/handshake",
+          "/api/auth/handshake",
           { public_key: publicKey.toBase58() }
         );
         const message = new TextEncoder().encode(res.data.data);

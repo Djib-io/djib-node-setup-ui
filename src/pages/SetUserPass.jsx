@@ -32,7 +32,7 @@ function SetUserPass() {
     const { username, password } = resdata;
     try {
       const res = await axios.post(
-        "http://167.235.133.112:3045/api/info/set-password",
+        "/api/info/set-password",
         {
           token: localStorage.getItem("djibtoken"),
           username: username,

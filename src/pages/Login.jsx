@@ -21,7 +21,7 @@ function Login() {
   const dataPost = async (resdata) => {
     try {
       const res = await axios.post(
-        "http://167.235.133.112:3045/api/login",
+        "/api/login",
         resdata
       );
       localStorage.setItem("djibtoken", res.data.data);

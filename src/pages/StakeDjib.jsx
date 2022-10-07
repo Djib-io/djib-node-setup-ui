@@ -24,7 +24,7 @@ function StakeDjib() {
     setloadingText("Start Staking");
     try {
       const res = await axios.post(
-        "http://167.235.133.112:3045/api/stake/create-payment",
+        "/api/stake/create-payment",
         {
           token: localStorage.getItem("djibtoken"),
           amount: 0,
@@ -54,7 +54,7 @@ function StakeDjib() {
 
       while (!finalized) {
         const resConfirm = await axios.post(
-          "http://167.235.133.112:3045/api/stake/confirm-payment",
+          "/api/stake/confirm-payment",
           {
             token: localStorage.getItem("djibtoken"),
             tracking_code: res.data.data.tracking_code,
